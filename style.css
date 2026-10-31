@@ -1,0 +1,183 @@
+/* ================= ПЕРЕМЕННЫЕ И ЦВЕТА ================= */
+:root {
+    font-size: 100%;
+    --primary-purple: #9b7bb4;
+    --bg-color: #ffffff;
+    --bg-alt: #f9f9f9;
+    --text-color: #333333;
+    --nav-text: #ffffff;
+    --accent-color: #005fcc;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+body.dark-theme {
+    --bg-color: #121212;
+    --bg-alt: #1a1a1a;
+    --text-color: #f4f4f4;
+    --card-bg: #2a2a2a;
+    --border-color: #444;
+    --primary-purple: #7a5c91;
+    --shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+body.high-contrast {
+    --bg-color: #000000;
+    --bg-alt: #000000;
+    --text-color: #ffff00;
+    --primary-purple: #000000;
+    --nav-text: #ffff00;
+    --card-bg: #000000;
+    --border-color: #ffff00;
+    --accent-color: #00ffff;
+}
+body.high-contrast .hero, body.high-contrast .offer-section { border-bottom: 2px solid #ffff00; border-top: 2px solid #ffff00; }
+body.high-contrast a { color: #00ffff; text-decoration: underline; }
+body.high-contrast button, body.high-contrast .card, body.high-contrast .project-card { 
+    border: 2px solid #ffff00 !important; background: #000 !important; color: #ffff00 !important;
+}
+
+/* ================= БАЗОВЫЕ СТИЛИ ================= */
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; padding: 0; line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.skip-link { position: absolute; top: -50px; left: 0; background: #000; color: #fff; padding: 10px; z-index: 100; }
+.skip-link:focus { top: 0; }
+a:focus-visible, button:focus-visible { outline: 3px solid #ffcc00; outline-offset: 3px; }
+
+/* ================= ШАПКА ================= */
+.navbar {
+    background-color: var(--primary-purple);
+    padding: 15px 40px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;
+    position: sticky; top: 0; z-index: 50;
+}
+
+.nav-links { display: flex; gap: 25px; flex-wrap: wrap; }
+.nav-links a { color: var(--nav-text); text-decoration: none; font-weight: 500; font-size: 1.1rem; }
+.nav-links a:hover { opacity: 0.8; }
+
+.accessibility-tools { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.tool-btn {
+    background: rgba(255, 255, 255, 0.2); color: var(--nav-text);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 6px 15px; border-radius: 20px; cursor: pointer; font-size: 0.9rem;
+    display: flex; align-items: center; gap: 5px;
+}
+.tool-btn:hover { background: rgba(255, 255, 255, 0.4); }
+
+/* ================= БАННЕР (Как на скрине) ================= */
+.hero {
+    background-color: var(--primary-purple);
+    color: #ffffff;
+    text-align: center;
+    padding: 80px 20px 100px 20px;
+}
+body.high-contrast .hero { color: #ffff00; }
+.hero h1 { margin: 0 0 15px 0; font-size: 3.5rem; font-weight: 700; letter-spacing: 1px; }
+.hero p { margin: 0; font-size: 1.3rem; opacity: 0.9; }
+
+/* ================= ОСНОВНОЙ КОНТЕНТ ================= */
+main { padding-bottom: 50px; }
+section { padding: 60px 20px; scroll-margin-top: 80px; }
+
+.section-container { max-width: 800px; margin: 0 auto; }
+.bg-alt { background-color: var(--bg-alt); }
+.section-title { font-size: 2.2rem; margin-bottom: 40px; text-align: center; }
+
+/* ================= ОБО МНЕ (Как на скрине) ================= */
+/* Аватарка по центру, текст слева под ней */
+.avatar {
+    display: block;
+    width: 220px; 
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 30px auto; /* Центрируем картинку */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.about-title {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    text-align: left; /* Текст слева */
+}
+
+.about-text {
+    font-size: 1.15rem;
+    text-align: left; /* Текст слева */
+    margin: 0;
+}
+
+/* ================= НАВЫКИ ================= */
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+.card {
+    background-color: var(--card-bg); padding: 25px 15px; border-radius: 10px;
+    border: 1px solid var(--border-color); box-shadow: var(--shadow);
+    text-align: center; font-weight: bold; font-size: 1.1rem;
+}
+.card:hover { transform: translateY(-5px); }
+
+/* ================= ПРОЕКТЫ ================= */
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+.project-card {
+    background-color: var(--card-bg); border-radius: 12px; border: 1px solid var(--border-color);
+    box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column;
+}
+.project-img {
+    height: 160px; background: linear-gradient(135deg, var(--primary-purple), #d8b4e2);
+    display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;
+}
+.project-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+.project-info h3 { margin-top: 0; font-size: 1.4rem; }
+.project-info p { color: #666; font-size: 1rem; flex-grow: 1; }
+body.dark-theme .project-info p { color: #aaa; }
+.tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px; }
+.tag { background: var(--bg-alt); color: var(--primary-purple); padding: 4px 10px; border-radius: 15px; font-size: 0.85rem; font-weight: bold; border: 1px solid var(--border-color); }
+
+/* ================= ПРЕДЛОЖЕНИЕ ================= */
+.offer-section { background: linear-gradient(135deg, var(--primary-purple), #b89dcc); color: white; text-align: center; padding: 80px 20px; }
+body.high-contrast .offer-section { color: #ffff00; background: #000; }
+.offer-section h2 { font-size: 2.5rem; margin-bottom: 15px; }
+.offer-section p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px auto; }
+.cta-btn {
+    display: inline-block; background: #ffffff; color: var(--primary-purple);
+    padding: 15px 40px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+body.high-contrast .cta-btn { background: #ffff00; color: #000; border: 2px solid #ffff00; }
+
+/* ================= ФОРМА ================= */
+.contact-box {
+    background-color: var(--card-bg); padding: 30px; border-radius: 12px;
+    border: 1px solid var(--border-color); box-shadow: var(--shadow);
+    max-width: 600px; margin: 0 auto;
+}
+.form-group { margin-bottom: 20px; }
+label { display: block; font-weight: bold; margin-bottom: 8px; }
+input, textarea {
+    width: 100%; padding: 12px; box-sizing: border-box; font-family: inherit; font-size: 1rem;
+    background: var(--bg-color); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 6px;
+}
+.submit-btn { padding: 14px; background: var(--primary-purple); color: #fff; border: none; cursor: pointer; font-size: 1.1rem; border-radius: 6px; font-weight: bold; width: 100%; }
+.submit-btn:hover { opacity: 0.9; }
+.form-status { margin-top: 15px; font-weight: bold; color: var(--accent-color); text-align: center; min-height: 24px; margin-bottom: 10px; }
+
+/* ================= ПОДВАЛ ================= */
+footer { background-color: #222; color: #bbb; text-align: center; padding: 25px; font-size: 0.9rem; }
+
+/* ================= АДАПТИВНОСТЬ ================= */
+@media (max-width: 768px) {
+    .navbar { flex-direction: column; align-items: flex-start; padding: 15px 20px; }
+    .nav-links { width: 100%; justify-content: space-between; margin-bottom: 10px; }
+    .accessibility-tools { width: 100%; justify-content: space-between; }
+    .hero h1 { font-size: 2.5rem; }
+}
