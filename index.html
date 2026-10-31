@@ -6,13 +6,302 @@
     <meta name="description" content="Портфолио начинающего программиста Жамбаловой Саяны">
     <title>Жамбалова Саяна — студент программист</title>
     
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ================= ПЕРЕМЕННЫЕ И ЦВЕТА ================= */
+        :root {
+            font-size: 100%;
+            --primary-purple: #9b7bb4;
+            --bg-color: #ffffff;
+            --bg-alt: #f9f9f9;
+            --text-color: #333333;
+            --nav-text: #ffffff;
+            --accent-color: #005fcc;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        /* Темная тема */
+        body.dark-theme {
+            --bg-color: #121212;
+            --bg-alt: #1a1a1a;
+            --text-color: #f4f4f4;
+            --card-bg: #2a2a2a;
+            --border-color: #444;
+            --primary-purple: #7a5c91;
+            --shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Высокая контрастность */
+        body.high-contrast {
+            --bg-color: #000000;
+            --bg-alt: #000000;
+            --text-color: #ffff00;
+            --primary-purple: #000000;
+            --nav-text: #ffff00;
+            --card-bg: #000000;
+            --border-color: #ffff00;
+            --accent-color: #00ffff;
+        }
+        body.high-contrast .hero, body.high-contrast .offer-section { border-bottom: 3px solid #ffff00; border-top: 3px solid #ffff00; }
+        body.high-contrast a { color: #00ffff; text-decoration: underline; }
+        body.high-contrast button, body.high-contrast .card, body.high-contrast .project-card { 
+            border: 2px solid #ffff00 !important; 
+            background: #000 !important;
+            color: #ffff00 !important;
+        }
+
+        /* ================= БАЗОВЫЕ СТИЛИ ================= */
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -50px;
+            left: 0;
+            background: #000;
+            color: #fff;
+            padding: 10px;
+            z-index: 100;
+        }
+        .skip-link:focus { top: 0; }
+
+        a:focus-visible, button:focus-visible { outline: 3px solid #ffcc00; outline-offset: 3px; }
+
+        /* ================= ШАПКА ================= */
+        .navbar {
+            background-color: var(--primary-purple);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+        .nav-links a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover { opacity: 0.8; }
+
+        .accessibility-tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .accessibility-tools button {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--nav-text);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+        .accessibility-tools button:hover { background: rgba(255, 255, 255, 0.4); }
+
+        /* ================= БАННЕР ================= */
+        .hero {
+            background-color: var(--primary-purple);
+            color: #ffffff;
+            text-align: center;
+            padding: 70px 20px 90px 20px;
+            transition: background-color 0.3s;
+        }
+        body.high-contrast .hero { color: #ffff00; }
+        .hero h1 { margin: 0 0 10px 0; font-size: 3.5rem; font-weight: 700; }
+        .hero p { margin: 0; font-size: 1.3rem; opacity: 0.9; }
+
+        /* ================= ОСНОВНОЙ КОНТЕНТ ================= */
+        main { padding-bottom: 40px; }
+        section { padding: 60px 20px; scroll-margin-top: 80px; }
+
+        .bg-white { background-color: var(--bg-color); }
+        .bg-alt { background-color: var(--bg-alt); }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+        .section-title { font-size: 2.2rem; margin-bottom: 40px; text-align: center; }
+
+        /* ОБО МНЕ */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .avatar {
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            border: 4px solid var(--card-bg);
+        }
+        .about-text { max-width: 700px; font-size: 1.15rem; text-align: center; }
+
+        /* НАВЫКИ */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            padding: 25px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-5px); }
+
+        /* ПРОЕКТЫ */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s;
+        }
+        .project-card:hover { transform: scale(1.02); }
+
+        .project-img {
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary-purple), #d8b4e2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        .project-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .project-info h3 { margin-top: 0; font-size: 1.4rem; }
+        .project-info p { color: #666; font-size: 1rem; flex-grow: 1; }
+        body.dark-theme .project-info p { color: #aaa; }
+
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px; }
+        .tag {
+            background: var(--bg-alt);
+            color: var(--primary-purple);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border: 1px solid var(--border-color);
+        }
+
+        /* ИНТЕРЕСНОЕ ПРЕДЛОЖЕНИЕ */
+        .offer-section {
+            background: linear-gradient(135deg, var(--primary-purple), #b89dcc);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+        body.high-contrast .offer-section { color: #ffff00; background: #000; }
+        .offer-section h2 { font-size: 2.5rem; margin-bottom: 15px; }
+        .offer-section p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 30px auto; opacity: 0.95; }
+
+        .cta-btn {
+            display: inline-block;
+            background: #ffffff;
+            color: var(--primary-purple);
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .cta-btn:hover { transform: translateY(-3px); background: #f0f0f0; }
+        body.high-contrast .cta-btn { background: #ffff00; color: #000; border: 2px solid #ffff00; }
+
+        /* ФОРМА */
+        .contact-section {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; }
+        input, textarea {
+            width: 100%; padding: 12px; box-sizing: border-box;
+            font-family: inherit; font-size: 1rem;
+            background: var(--bg-color); color: var(--text-color);
+            border: 1px solid var(--border-color); border-radius: 6px;
+        }
+        .submit-btn {
+            padding: 14px; background: var(--primary-purple); color: #fff;
+            border: none; cursor: pointer; font-size: 1.1rem;
+            border-radius: 6px; font-weight: bold; width: 100%;
+            transition: opacity 0.2s;
+        }
+        .submit-btn:hover { opacity: 0.9; }
+
+        .form-status {
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-align: center;
+            min-height: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* ПОДВАЛ */
+        footer {
+            background-color: #222;
+            color: #bbb;
+            text-align: center;
+            padding: 25px;
+            font-size: 0.9rem;
+        }
+
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; align-items: flex-start; }
+            .nav-links { width: 100%; justify-content: space-between; margin-bottom: 10px; }
+            .accessibility-tools { width: 100%; justify-content: space-between; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 <body>
 
     <a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
 
-    <!-- ШАПКА -->
+    <!-- НАВИГАЦИЯ -->
     <nav class="navbar">
         <div class="nav-links">
             <a href="#about">Обо мне</a>
@@ -22,15 +311,15 @@
         </div>
         
         <div class="accessibility-tools" role="toolbar" aria-label="Настройки доступности">
-            <button type="button" id="btn-read" class="tool-btn" aria-label="Прочитать текст страницы вслух">🔊 Прочитать</button>
-            <button type="button" id="btn-font-decrease" class="tool-btn" aria-label="Уменьшить размер текста">A-</button>
-            <button type="button" id="btn-font-increase" class="tool-btn" aria-label="Увеличить размер текста">A+</button>
-            <button id="contrast-toggle" class="tool-btn" type="button" aria-label="Включить высокую контрастность" aria-pressed="false">🌓 Контраст</button>
-            <button id="theme-toggle" class="tool-btn" type="button" aria-label="Переключить темную тему" aria-pressed="false"><span id="theme-icon">🌙</span></button>
+            <button type="button" id="btn-read" aria-label="Прочитать текст страницы вслух" title="Синтез речи">🔊 Прочитать</button>
+            <button type="button" id="btn-font-decrease" aria-label="Уменьшить размер текста">A-</button>
+            <button type="button" id="btn-font-increase" aria-label="Увеличить размер текста">A+</button>
+            <button id="contrast-toggle" type="button" aria-label="Включить высокую контрастность" aria-pressed="false">🌓 Контраст</button>
+            <button id="theme-toggle" type="button" aria-label="Переключить темную тему" aria-pressed="false"><span id="theme-icon" aria-hidden="true">🌙</span></button>
         </div>
     </nav>
 
-    <!-- БАННЕР (как на скриншоте) -->
+    <!-- БАННЕР -->
     <header class="hero">
         <h1>Жамбалова Саяна</h1>
         <p>Начинающий программист</p>
@@ -39,19 +328,21 @@
     <!-- ОСНОВНОЙ КОНТЕНТ -->
     <main id="main-content">
         
-        <!-- ОБО МНЕ (как на скриншоте) -->
-        <section id="about" class="section-container">
-            <img src="saya.jpg" alt="Фотография Жамбаловой Саяны" class="avatar" onerror="this.src='https://via.placeholder.com/220?text=Ваше+Фото'">
-            
-            <h2 class="about-title">Обо мне</h2>
-            <p class="about-text">
-                Привет! Я изучаю <strong>программирование</strong> и создаю сайты на <em>HTML, CSS и JavaScript</em>. Это мой проект, собранный с нуля. Я делаю сайты удобными и доступными для всех пользователей, включая людей с ограниченными возможностями здоровья.
-            </p>
+        <!-- ОБО МНЕ -->
+        <section id="about" class="bg-white">
+            <div class="container about-content">
+                <img src="saya.jpg" alt="Фотография Жамбаловой Саяны" class="avatar" onerror="this.src='https://via.placeholder.com/200?text=Ваше+Фото'">
+                <h2 class="section-title">Обо мне</h2>
+                <div class="about-text">
+                    <p>Привет! Я изучаю <strong>веб-разработку</strong> и создаю современные сайты на HTML, CSS и JavaScript. Мне нравится превращать дизайн-макеты в живой, работающий код.</p>
+                    <p>Особое внимание я уделяю <strong>доступности (a11y)</strong> — чтобы сайтами могли удобно пользоваться люди с ограниченными возможностями здоровья.</p>
+                </div>
+            </div>
         </section>
 
         <!-- НАВЫКИ -->
         <section id="skills" class="bg-alt">
-            <div class="section-container">
+            <div class="container">
                 <h2 class="section-title">Мои навыки</h2>
                 <div class="skills-grid">
                     <div class="card">🌐 HTML5</div>
@@ -65,8 +356,8 @@
         </section>
 
         <!-- ПРОЕКТЫ -->
-        <section id="projects">
-            <div class="section-container">
+        <section id="projects" class="bg-white">
+            <div class="container">
                 <h2 class="section-title">Мои проекты</h2>
                 <div class="projects-grid">
                     
@@ -76,7 +367,9 @@
                             <h3>Сайт-портфолио</h3>
                             <p>Этот сайт, который вы видите прямо сейчас. Разработан с нуля. Главная фишка — встроенные инструменты доступности: чтение вслух, темная тема и высокая контрастность.</p>
                             <div class="tags">
-                                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
+                                <span class="tag">HTML</span>
+                                <span class="tag">CSS</span>
+                                <span class="tag">JS</span>
                             </div>
                         </div>
                     </article>
@@ -87,7 +380,8 @@
                             <h3>Мини-игра "Угадай число"</h3>
                             <p>Интерактивная игра на JavaScript. Пользователь вводит числа, а скрипт подсказывает, больше или меньше загаданное число. Отработка работы с DOM и логикой.</p>
                             <div class="tags">
-                                <span class="tag">JavaScript</span><span class="tag">DOM</span>
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">DOM</span>
                             </div>
                         </div>
                     </article>
@@ -98,26 +392,33 @@
                             <h3>Лендинг для кофейни</h3>
                             <p>Одностраничный сайт для вымышленной кофейни. Сделан упор на красивую анимацию, удобное меню и адаптивность под мобильные телефоны.</p>
                             <div class="tags">
-                                <span class="tag">HTML</span><span class="tag">CSS</span>
+                                <span class="tag">HTML</span>
+                                <span class="tag">CSS</span>
+                                <span class="tag">Flexbox</span>
                             </div>
                         </div>
                     </article>
+
                 </div>
             </div>
         </section>
 
-        <!-- ПРЕДЛОЖЕНИЕ -->
+        <!-- ИНТЕРЕСНОЕ ПРЕДЛОЖЕНИЕ -->
         <section class="offer-section">
-            <div class="section-container">
+            <div class="container">
                 <h2>Ищу стажировку или интересный проект!</h2>
-                <p>Я открыта к предложениям о сотрудничестве, стажировках или фрилансе. Готова взяться за верстку лендингов, правки на существующих сайтах или другие задачи.</p>
+                <p>Я открыта к предложениям о сотрудничестве, стажировках или фрилансе. Готова взяться за верстку лендингов, правки на существующих сайтах или другие задачи. Давайте создавать крутые вещи вместе!</p>
                 <a href="#contact" class="cta-btn">Обсудить проект</a>
             </div>
         </section>
 
         <!-- КОНТАКТЫ -->
         <section id="contact" class="bg-alt">
-                            <div class="contact-box">
+            <div class="container">
+                <h2 class="section-title">Связаться со мной</h2>
+                <div class="contact-section">
+                    <p style="text-align: center; margin-top: 0; margin-bottom: 25px;">Заполните форму, и я получу ваше сообщение на почту.</p>
+                    
                     <form id="contact-form" action="https://formspree.io/f/xbggawev" method="POST">
                         <div class="form-group">
                             <label for="name">Ваше имя:</label>
@@ -135,3 +436,102 @@
                         <button type="submit" class="submit-btn">Отправить сообщение</button>
                     </form>
                 </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Жамбалова Саяна. Все права защищены.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            
+            // 1. РАЗМЕР ШРИФТА
+            let currentFontSize = 100;
+            document.getElementById('btn-font-increase').addEventListener('click', () => {
+                if (currentFontSize < 180) { currentFontSize += 10; document.documentElement.style.fontSize = currentFontSize + '%'; }
+            });
+            document.getElementById('btn-font-decrease').addEventListener('click', () => {
+                if (currentFontSize > 80) { currentFontSize -= 10; document.documentElement.style.fontSize = currentFontSize + '%'; }
+            });
+
+            // 2. КОНТРАСТНОСТЬ
+            const contrastToggle = document.getElementById('contrast-toggle');
+            contrastToggle.addEventListener('click', () => {
+                const isPressed = contrastToggle.getAttribute('aria-pressed') === 'true';
+                body.classList.toggle('high-contrast');
+                contrastToggle.setAttribute('aria-pressed', !isPressed);
+                if (!isPressed) {
+                    body.classList.remove('dark-theme');
+                    document.getElementById('theme-toggle').setAttribute('aria-pressed', 'false');
+                    document.getElementById('theme-icon').textContent = '🌙';
+                }
+            });
+
+            // 3. ТЕМНАЯ ТЕМА
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            themeToggle.addEventListener('click', () => {
+                const isPressed = themeToggle.getAttribute('aria-pressed') === 'true';
+                if (body.classList.contains('high-contrast')) {
+                    body.classList.remove('high-contrast');
+                    contrastToggle.setAttribute('aria-pressed', 'false');
+                }
+                body.classList.toggle('dark-theme');
+                themeToggle.setAttribute('aria-pressed', !isPressed);
+                themeIcon.textContent = isPressed ? '🌙' : '☀️';
+            });
+
+            // 4. ЧТЕНИЕ ВСЛУХ
+            const btnRead = document.getElementById('btn-read');
+            let isReading = false;
+            btnRead.addEventListener('click', () => {
+                if (isReading) {
+                    window.speechSynthesis.cancel();
+                    isReading = false;
+                    btnRead.innerHTML = '🔊 Прочитать';
+                } else {
+                    const textToRead = document.getElementById('main-content').innerText;
+                    const utterance = new SpeechSynthesisUtterance(textToRead);
+                    utterance.lang = 'ru-RU';
+                    utterance.onend = () => { isReading = false; btnRead.innerHTML = '🔊 Прочитать'; };
+                    window.speechSynthesis.speak(utterance);
+                    isReading = true;
+                    btnRead.innerHTML = '⏹ Остановить';
+                }
+            });
+
+            // 5. ОТПРАВКА ФОРМЫ
+            const form = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    formStatus.textContent = "Отправляем...";
+                    const formData = new FormData(form);
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        if (response.ok) {
+                            formStatus.textContent = "Спасибо! Сообщение отправлено.";
+                            formStatus.style.color = "green";
+                            form.reset(); 
+                        } else {
+                            formStatus.textContent = "Ошибка при отправке.";
+                            formStatus.style.color = "red";
+                        }
+                    } catch (error) {
+                        formStatus.textContent = "Ошибка сети.";
+                        formStatus.style.color = "red";
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
