@@ -1,4 +1,4 @@
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     
     // 1. РАЗМЕР ШРИФТА
