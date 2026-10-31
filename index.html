@@ -6,14 +6,13 @@
     <meta name="description" content="Портфолио начинающего программиста Жамбаловой Саяны">
     <title>Жамбалова Саяна — студент программист</title>
     
-    <!-- ПРАВИЛЬНЫЙ ПУТЬ К СТИЛЯМ -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <a class="skip-link" href="#main-content">Перейти к основному содержанию</a>
 
-    <!-- НАВИГАЦИЯ -->
+    <!-- ШАПКА -->
     <nav class="navbar">
         <div class="nav-links">
             <a href="#about">Обо мне</a>
@@ -23,15 +22,15 @@
         </div>
         
         <div class="accessibility-tools" role="toolbar" aria-label="Настройки доступности">
-            <button type="button" id="btn-read" aria-label="Прочитать текст страницы вслух" title="Синтез речи">🔊 Прочитать</button>
-            <button type="button" id="btn-font-decrease" aria-label="Уменьшить размер текста">A-</button>
-            <button type="button" id="btn-font-increase" aria-label="Увеличить размер текста">A+</button>
-            <button id="contrast-toggle" type="button" aria-label="Включить высокую контрастность" aria-pressed="false">🌓 Контраст</button>
-            <button id="theme-toggle" type="button" aria-label="Переключить темную тему" aria-pressed="false"><span id="theme-icon" aria-hidden="true">🌙</span></button>
+            <button type="button" id="btn-read" class="tool-btn" aria-label="Прочитать текст страницы вслух">🔊 Прочитать</button>
+            <button type="button" id="btn-font-decrease" class="tool-btn" aria-label="Уменьшить размер текста">A-</button>
+            <button type="button" id="btn-font-increase" class="tool-btn" aria-label="Увеличить размер текста">A+</button>
+            <button id="contrast-toggle" class="tool-btn" type="button" aria-label="Включить высокую контрастность" aria-pressed="false">🌓 Контраст</button>
+            <button id="theme-toggle" class="tool-btn" type="button" aria-label="Переключить темную тему" aria-pressed="false"><span id="theme-icon">🌙</span></button>
         </div>
     </nav>
 
-    <!-- БАННЕР -->
+    <!-- БАННЕР (как на скриншоте) -->
     <header class="hero">
         <h1>Жамбалова Саяна</h1>
         <p>Начинающий программист</p>
@@ -40,21 +39,19 @@
     <!-- ОСНОВНОЙ КОНТЕНТ -->
     <main id="main-content">
         
-        <!-- ОБО МНЕ -->
-        <section id="about" class="bg-white">
-            <div class="container about-content">
-                <img src="saya.jpg" alt="Фотография Жамбаловой Саяны" class="avatar" onerror="this.src='https://via.placeholder.com/200?text=Ваше+Фото'">
-                <h2 class="section-title">Обо мне</h2>
-                <div class="about-text">
-                    <p>Привет! Я изучаю <strong>веб-разработку</strong> и создаю современные сайты на HTML, CSS и JavaScript. Мне нравится превращать дизайн-макеты в живой, работающий код.</p>
-                    <p>Особое внимание я уделяю <strong>доступности (a11y)</strong> — чтобы сайтами могли удобно пользоваться люди с ограниченными возможностями здоровья.</p>
-                </div>
-            </div>
+        <!-- ОБО МНЕ (как на скриншоте) -->
+        <section id="about" class="section-container">
+            <img src="saya.jpg" alt="Фотография Жамбаловой Саяны" class="avatar" onerror="this.src='https://via.placeholder.com/220?text=Ваше+Фото'">
+            
+            <h2 class="about-title">Обо мне</h2>
+            <p class="about-text">
+                Привет! Я изучаю <strong>программирование</strong> и создаю сайты на <em>HTML, CSS и JavaScript</em>. Это мой проект, собранный с нуля. Я делаю сайты удобными и доступными для всех пользователей, включая людей с ограниченными возможностями здоровья.
+            </p>
         </section>
 
         <!-- НАВЫКИ -->
         <section id="skills" class="bg-alt">
-            <div class="container">
+            <div class="section-container">
                 <h2 class="section-title">Мои навыки</h2>
                 <div class="skills-grid">
                     <div class="card">🌐 HTML5</div>
@@ -68,8 +65,8 @@
         </section>
 
         <!-- ПРОЕКТЫ -->
-        <section id="projects" class="bg-white">
-            <div class="container">
+        <section id="projects">
+            <div class="section-container">
                 <h2 class="section-title">Мои проекты</h2>
                 <div class="projects-grid">
                     
@@ -79,9 +76,7 @@
                             <h3>Сайт-портфолио</h3>
                             <p>Этот сайт, который вы видите прямо сейчас. Разработан с нуля. Главная фишка — встроенные инструменты доступности: чтение вслух, темная тема и высокая контрастность.</p>
                             <div class="tags">
-                                <span class="tag">HTML</span>
-                                <span class="tag">CSS</span>
-                                <span class="tag">JS</span>
+                                <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span>
                             </div>
                         </div>
                     </article>
@@ -92,8 +87,7 @@
                             <h3>Мини-игра "Угадай число"</h3>
                             <p>Интерактивная игра на JavaScript. Пользователь вводит числа, а скрипт подсказывает, больше или меньше загаданное число. Отработка работы с DOM и логикой.</p>
                             <div class="tags">
-                                <span class="tag">JavaScript</span>
-                                <span class="tag">DOM</span>
+                                <span class="tag">JavaScript</span><span class="tag">DOM</span>
                             </div>
                         </div>
                     </article>
@@ -104,34 +98,26 @@
                             <h3>Лендинг для кофейни</h3>
                             <p>Одностраничный сайт для вымышленной кофейни. Сделан упор на красивую анимацию, удобное меню и адаптивность под мобильные телефоны.</p>
                             <div class="tags">
-                                <span class="tag">HTML</span>
-                                <span class="tag">CSS</span>
-                                <span class="tag">Flexbox</span>
+                                <span class="tag">HTML</span><span class="tag">CSS</span>
                             </div>
                         </div>
                     </article>
-
                 </div>
             </div>
         </section>
 
-        <!-- ИНТЕРЕСНОЕ ПРЕДЛОЖЕНИЕ -->
+        <!-- ПРЕДЛОЖЕНИЕ -->
         <section class="offer-section">
-            <div class="container">
+            <div class="section-container">
                 <h2>Ищу стажировку или интересный проект!</h2>
-                <p>Я открыта к предложениям о сотрудничестве, стажировках или фрилансе. Готова взяться за верстку лендингов, правки на существующих сайтах или другие задачи. Давайте создавать крутые вещи вместе!</p>
+                <p>Я открыта к предложениям о сотрудничестве, стажировках или фрилансе. Готова взяться за верстку лендингов, правки на существующих сайтах или другие задачи.</p>
                 <a href="#contact" class="cta-btn">Обсудить проект</a>
             </div>
         </section>
 
         <!-- КОНТАКТЫ -->
         <section id="contact" class="bg-alt">
-            <div class="container">
-                <h2 class="section-title">Связаться со мной</h2>
-                <div class="contact-section">
-                    <p style="text-align: center; margin-top: 0; margin-bottom: 25px;">Заполните форму, и я получу ваше сообщение на почту.</p>
-                    
-                    <!-- ПРАВИЛЬНАЯ ССЫЛКА НА FORMSPREE -->
+                            <div class="contact-box">
                     <form id="contact-form" action="https://formspree.io/f/xbggawev" method="POST">
                         <div class="form-group">
                             <label for="name">Ваше имя:</label>
@@ -149,15 +135,3 @@
                         <button type="submit" class="submit-btn">Отправить сообщение</button>
                     </form>
                 </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 Жамбалова Саяна. Все права защищены.</p>
-    </footer>
-
-    <!-- ПРАВИЛЬНЫЙ ПУТЬ К СКРИПТАМ -->
-    <script src="script.js"></script>
-</body>
-</html>
